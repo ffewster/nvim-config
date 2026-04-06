@@ -10,4 +10,5 @@ return {
   require 'custom.plugins.neo-tree-config',
   require 'custom.plugins.sleuth',
   require 'custom.plugins.theme',
+  require 'custom.plugins.markdown-render',
 }
