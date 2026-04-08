@@ -543,8 +543,7 @@ require('lazy').setup({
             mode = mode or 'n'
             vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
           end
-
-          -- Rename the variable under your cursor.
+          map('K', vim.lsp.buf.hover, 'Hover Documentation')
           --  Most Language Servers support renaming across files, etc.
           map('rn', vim.lsp.buf.rename, '[R]e[n]ame')
 
@@ -668,8 +667,10 @@ require('lazy').setup({
 
       for name, server in pairs(servers) do
         vim.lsp.config(name, server)
-        vim.lsp.enable(name)
       end
+
+      -- Enable all servers (both those with custom config and those with defaults)
+      vim.lsp.enable(ensure_installed)
     end,
   },
 
