@@ -13,6 +13,7 @@ return {
     end,
     opts = {
       -- See Configuration section for options
+      model = 'claude-sonnet-4.6',
     },
   },
 }
