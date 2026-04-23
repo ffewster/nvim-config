@@ -14,4 +14,6 @@ return {
   require 'custom.plugins.sleuth',
   require 'custom.plugins.theme',
   require 'custom.plugins.markdown-render',
+  require 'custom.plugins.snacks',
+  require 'custom.plugins.claude',
 }
