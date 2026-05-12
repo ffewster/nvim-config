@@ -612,6 +612,21 @@ require('lazy').setup({
 
         stylua = {}, -- Used to format Lua code
 
+        yamlls = {
+          filetypes = { 'yaml', 'yaml.docker-compose' },
+        },
+
+        helm_ls = {
+          filetypes = { 'helm' },
+          settings = {
+            ['helm-ls'] = {
+              yamlls = {
+                path = 'yaml-language-server',
+              },
+            },
+          },
+        },
+
         -- Special Lua Config, as recommended by neovim help docs
         lua_ls = {
           on_init = function(client)
@@ -659,6 +674,7 @@ require('lazy').setup({
         'graphql',
         'jsonls',
         'yamlls',
+        'helm_ls',
         'eslint',
         'bashls',
       })
