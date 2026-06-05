@@ -28,6 +28,16 @@ return {
       hi VertSplit guibg=NONE ctermbg=NONE
       hi StatusLine guibg=NONE ctermbg=NONE
       hi LineNr guibg=NONE ctermbg=NONE
+      hi NormalFloat guibg=#1D1C19
+      hi FloatBorder guibg=#1D1C19
+      hi TelescopeNormal guibg=#1D1C19
+      hi TelescopeBorder guibg=#1D1C19
+      hi TelescopePromptNormal guibg=#1D1C19
+      hi TelescopePromptBorder guibg=#1D1C19
+      hi TelescopeResultsNormal guibg=#1D1C19
+      hi TelescopeResultsBorder guibg=#1D1C19
+      hi TelescopePreviewNormal guibg=#1D1C19
+      hi TelescopePreviewBorder guibg=#1D1C19
     ]]
   end,
 }
