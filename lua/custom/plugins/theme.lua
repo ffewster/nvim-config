@@ -9,36 +9,27 @@
 -- }
 
 return {
-  'rebelot/kanagawa.nvim',
+  'ellisonleao/gruvbox.nvim',
   lazy = false,
   priority = 1000,
   config = function()
-    require('kanagawa').setup {
-      commentStyle = {
-        italic = true,
+    require('gruvbox').setup {
+      contrast = 'hard',
+      transparent_mode = true,
+      overrides = {
+        NormalFloat = { bg = '#1d2021' },
+        FloatBorder = { bg = '#1d2021' },
+        TelescopeNormal = { bg = '#1d2021' },
+        TelescopeBorder = { bg = '#1d2021' },
+        TelescopePromptNormal = { bg = '#1d2021' },
+        TelescopePromptBorder = { bg = '#1d2021' },
+        TelescopeResultsNormal = { bg = '#1d2021' },
+        TelescopeResultsBorder = { bg = '#1d2021' },
+        TelescopePreviewNormal = { bg = '#1d2021' },
+        TelescopePreviewBorder = { bg = '#1d2021' },
       },
-      -- optional: your custom config here
     }
-    vim.cmd 'colorscheme kanagawa-dragon'
-
-    vim.cmd [[
-      hi Normal guibg=NONE ctermbg=NONE
-      hi NormalNC guibg=NONE ctermbg=NONE
-      hi SignColumn guibg=NONE ctermbg=NONE
-      hi VertSplit guibg=NONE ctermbg=NONE
-      hi StatusLine guibg=NONE ctermbg=NONE
-      hi LineNr guibg=NONE ctermbg=NONE
-      hi NormalFloat guibg=#1D1C19
-      hi FloatBorder guibg=#1D1C19
-      hi TelescopeNormal guibg=#1D1C19
-      hi TelescopeBorder guibg=#1D1C19
-      hi TelescopePromptNormal guibg=#1D1C19
-      hi TelescopePromptBorder guibg=#1D1C19
-      hi TelescopeResultsNormal guibg=#1D1C19
-      hi TelescopeResultsBorder guibg=#1D1C19
-      hi TelescopePreviewNormal guibg=#1D1C19
-      hi TelescopePreviewBorder guibg=#1D1C19
-    ]]
+    vim.cmd.colorscheme 'gruvbox'
   end,
 }
 
