@@ -19,16 +19,27 @@ return {
 
       -- Set up your custom keymaps
       vim.keymap.set('n', '<leader>e', toggle_tree, { desc = 'Open NeoTree' })
-      vim.keymap.set('n', '<leader>n', function()
-        vim.cmd 'Neotree focus'
-      end, { desc = 'Focus NeoTree' })
+      vim.keymap.set('n', '<leader>n', function() vim.cmd 'Neotree focus' end, { desc = 'Focus NeoTree' })
 
       -- Setup neo-tree
       require('neo-tree').setup {
+        default_component_configs = {
+          indent = {
+            with_expanders = true,
+          },
+        },
         filesystem = {
+          window = {
+            position = 'default',
+          },
           follow_current_file = {
             enabled = true,
           },
+          group_empty_dirs = true,
+        },
+        source_selector = {
+          winbar = true,
+          statusline = false,
         },
       }
     end,
