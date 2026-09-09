@@ -1,47 +1,38 @@
-return {
-  {
-    'nvim-neo-tree/neo-tree.nvim',
-    branch = 'v3.x',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'nvim-tree/nvim-web-devicons',
-      'MunifTanjim/nui.nvim',
-    },
-    keys = {
-      { '<leader>e', desc = 'Open NeoTree' },
-      { '<leader>n', desc = 'Focus NeoTree' },
-    },
-    config = function()
-      local toggle_tree = function()
-        vim.cmd 'Neotree toggle'
-        vim.opt.relativenumber = true -- Use relative line numbers
-      end
+-- nvim-tree/nvim-web-devicons dependency is covered by mini.icons' devicons compat shim
+vim.pack.add {
+  { src = 'https://github.com/nvim-neo-tree/neo-tree.nvim', version = 'v3.x' },
+  'https://github.com/MunifTanjim/nui.nvim',
+}
 
-      -- Set up your custom keymaps
-      vim.keymap.set('n', '<leader>e', toggle_tree, { desc = 'Open NeoTree' })
-      vim.keymap.set('n', '<leader>n', function() vim.cmd 'Neotree focus' end, { desc = 'Focus NeoTree' })
+local toggle_tree = function()
+  vim.cmd 'Neotree toggle'
+  vim.opt.relativenumber = true -- Use relative line numbers
+end
 
-      -- Setup neo-tree
-      require('neo-tree').setup {
-        default_component_configs = {
-          indent = {
-            with_expanders = true,
-          },
-        },
-        filesystem = {
-          window = {
-            position = 'default',
-          },
-          follow_current_file = {
-            enabled = true,
-          },
-          group_empty_dirs = true,
-        },
-        source_selector = {
-          winbar = true,
-          statusline = false,
-        },
-      }
-    end,
+vim.keymap.set('n', '<leader>e', toggle_tree, { desc = 'Open NeoTree' })
+vim.keymap.set('n', '<leader>n', function() vim.cmd 'Neotree focus' end, { desc = 'Focus NeoTree' })
+vim.keymap.set('n', '\\', '<Cmd>Neotree reveal<CR>', { desc = 'NeoTree reveal', silent = true })
+
+require('neo-tree').setup {
+  default_component_configs = {
+    indent = {
+      with_expanders = true,
+    },
+  },
+  filesystem = {
+    window = {
+      position = 'default',
+      mappings = {
+        ['\\'] = 'close_window',
+      },
+    },
+    follow_current_file = {
+      enabled = true,
+    },
+    group_empty_dirs = true,
+  },
+  source_selector = {
+    winbar = true,
+    statusline = false,
   },
 }

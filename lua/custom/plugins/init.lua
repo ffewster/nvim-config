@@ -3,17 +3,12 @@
 --
 -- See the kickstart.nvim README for more information
 
----@module 'lazy'
----@type LazySpec
-return {
-  require 'custom.plugins.comment',
-  require 'custom.plugins.tabs',
-  require 'custom.plugins.copilot',
-  require 'custom.plugins.copilot-chat',
-  require 'custom.plugins.neo-tree-config',
-  require 'custom.plugins.sleuth',
-  require 'custom.plugins.theme',
-  require 'custom.plugins.markdown-render',
-  require 'custom.plugins.snacks',
-  require 'custom.plugins.claude',
-}
+-- Iterate over all Lua files in the plugins directory and load them.
+-- `vim.fs.dir()` iteration order is unspecified and must not be relied upon.
+local plugins_dir = vim.fs.joinpath(vim.fn.stdpath 'config', 'lua', 'custom', 'plugins')
+for file_name, type in vim.fs.dir(plugins_dir, { follow = true }) do
+  if (type == 'file' or type == 'link') and file_name:match '%.lua$' and file_name ~= 'init.lua' then
+    local module = file_name:gsub('%.lua$', '')
+    require('custom.plugins.' .. module)
+  end
+end

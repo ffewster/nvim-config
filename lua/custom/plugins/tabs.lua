@@ -1,26 +1,15 @@
-return {
-  {
-    'romgrk/barbar.nvim',
-    dependencies = {
-      'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
-      'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
-    },
-    init = function()
-      local map = vim.api.nvim_set_keymap
-      local opts = { noremap = true, silent = true }
-      vim.g.barbar_auto_setup = false
-      map('n', '<Tab>', '<Cmd>BufferNext<CR>', opts)
-      map('n', '<S-Tab>', '<Cmd>BufferPrevious<CR>', opts)
-      map('n', '<leader>xx', '<Cmd>BufferClose<CR>', opts)
-      map('n', '<leader>xl', '<Cmd>BufferCloseBuffersRight<CR>', opts)
-      map('n', '<leader>xh', '<Cmd>BufferCloseBuffersLeft<CR>', opts)
-    end,
-    opts = {
-      -- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
-      animation = true,
-      -- insert_at_start = true,
-      -- …etc.
-    },
-    version = '^1.0.0', -- optional: only update when a new 1.x version is released
-  },
+-- gitsigns.nvim is already installed by the core setup; devicons dependency
+-- is covered by mini.icons' devicons compat shim
+vim.g.barbar_auto_setup = false
+
+vim.pack.add { { src = 'https://github.com/romgrk/barbar.nvim', version = vim.version.range '1.*' } }
+
+vim.keymap.set('n', '<Tab>', '<Cmd>BufferNext<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<S-Tab>', '<Cmd>BufferPrevious<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>xx', '<Cmd>BufferClose<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>xl', '<Cmd>BufferCloseBuffersRight<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>xh', '<Cmd>BufferCloseBuffersLeft<CR>', { noremap = true, silent = true })
+
+require('barbar').setup {
+  animation = true,
 }

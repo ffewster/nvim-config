@@ -1,19 +1,9 @@
-return {
-  {
-    'CopilotC-Nvim/CopilotChat.nvim',
-    dependencies = {
-      { 'nvim-lua/plenary.nvim', branch = 'master' },
-    },
-    build = 'make tiktoken',
-    init = function()
-      local map = vim.api.nvim_set_keymap
-      local opts = { noremap = true, silent = true }
+-- plenary.nvim is already installed by the core telescope setup
+vim.pack.add { 'https://github.com/CopilotC-Nvim/CopilotChat.nvim' }
 
-      map('n', '<leader>ch', '<Cmd>CopilotChatToggle<CR>', opts)
-    end,
-    opts = {
-      -- See Configuration section for options
-      model = 'claude-sonnet-4.6',
-    },
-  },
+vim.keymap.set('n', '<leader>ch', '<Cmd>CopilotChatToggle<CR>', { noremap = true, silent = true })
+
+require('CopilotChat').setup {
+  -- See Configuration section for options
+  model = 'claude-sonnet-4.6',
 }
