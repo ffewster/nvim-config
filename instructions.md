@@ -4,19 +4,24 @@ This config uses Neovim's built-in `vim.pack`, not `lazy.nvim`. There's no
 `:Lazy` dashboard — updates go through `:lua vim.pack.update(...)`, which opens
 an interactive confirmation buffer instead of a floating UI.
 
-Two categories of plugin here, updated differently:
+Every plugin here — core kickstart ones and custom ones alike — is added the
+same way: bare `src`, no version pin, tracked via `nvim-pack-lock.json` like
+everything else. Nothing moves until you deliberately run
+`vim.pack.update(...)`, whether that's one plugin by name or everything at
+once. `version` only shows up on a spec where it's a genuine branch/tag
+selection (e.g. `neo-tree.nvim` defaults to `main`, but the stable line is the
+separate `v3.x` branch — same idea as `nvim-treesitter`'s `version = 'main'`
+in `init.lua`), never as a freeze mechanism.
 
-- **Core kickstart plugins** (`init.lua`, `lua/kickstart/plugins/*.lua`) —
-  no explicit commit pin from us, so they float on whatever
-  branch/tag/range upstream's `init.lua` specifies.
+- **Core kickstart plugins** — added in `init.lua` and
+  `lua/kickstart/plugins/*.lua`, as upstream ships them.
 - **Custom plugins** — every `vim.pack.add()` call for them lives in one
-  place, `lua/custom/plugins/init.lua`, each pinned to an exact commit hash so
-  none of them move until you edit the hash yourself. The individual files
-  (`claude.lua`, `comment.lua`, etc.) only contain `require(...).setup{}` and
-  keymaps — they don't call `vim.pack.add` themselves. This is deliberate:
-  those files load in an unspecified order (see the auto-discovery loop
-  comment in `init.lua`), so the `add()` calls have to happen earlier, in the
-  one file guaranteed to run first.
+  place, `lua/custom/plugins/init.lua`. The individual files (`claude.lua`,
+  `comment.lua`, etc.) only contain `require(...).setup{}` and keymaps — they
+  don't call `vim.pack.add` themselves. This is deliberate: those files load
+  in an unspecified order (see the auto-discovery loop comment in `init.lua`),
+  so the `add()` calls have to happen earlier, in the one file guaranteed to
+  run first.
 
 ## Everyday commands
 
@@ -53,21 +58,16 @@ Skip the confirmation buffer and apply immediately:
 - `gra` on a plugin — code actions: update / skip / delete it
 - `:write` — apply everything shown; `:quit` — discard
 
-## Bumping one of our pinned custom plugins
+## Switching a plugin's version/source, or freezing it
 
-1. Edit its `version = '<hash>'` entry in `lua/custom/plugins/init.lua`
-   — set it to a newer commit, a tag, or a branch name if you want it to float.
+1. Edit its spec (in `init.lua` or `lua/custom/plugins/init.lua`) — set
+   `version` to a commit, tag, branch, or a range like
+   `vim.version.range('1.*')` if you want a ceiling; set it to an exact commit
+   to freeze it in place.
 2. Relaunch nvim (or `:restart`). This only updates the *target* in
    `nvim-pack-lock.json`, not the plugin on disk yet.
 3. `:lua vim.pack.update({ 'PluginName' })`, review the diff, `:write` to apply
    (or `:quit` to discard — then revert your edit too, or it'll nag again).
-
-## Freezing / unfreezing a plugin
-
-- **Freeze**: set `version` to its current revision (`rev` field from
-  `vim.pack.get()` or `nvim-pack-lock.json`), then restart.
-- **Unfreeze**: set `version` to a branch name (e.g. `'main'`) or a range
-  (`vim.version.range('1.*')`), restart, then run `vim.pack.update()`.
 
 ## Reverting a bad update
 
@@ -97,12 +97,11 @@ Delete its entry from the `vim.pack.add {}` block in
 - Plugin checkouts (plain git repos): `~/.local/share/nvim/site/pack/core/opt/<name>/`
 - Docs: `:help vim.pack`, `:help vim.pack-examples`, `:help vim.pack-lockfile`
 
-## Current custom plugin pins
+## Custom plugin list
 
-Live in `lua/custom/plugins/init.lua`, in one `vim.pack.add {}` block at the
+Lives in `lua/custom/plugins/init.lua`, in one `vim.pack.add {}` block at the
 top of the file — that's the single source of truth for which custom plugins
-exist and what they're pinned to, so there's no separate table here to go
-stale.
+exist and how each is specced, so there's no separate table here to go stale.
 
 ## Optional: a fancier UI
 
