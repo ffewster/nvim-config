@@ -1,4 +1,4 @@
-vim.pack.add { 'https://github.com/folke/snacks.nvim' }
+vim.pack.add { { src = 'https://github.com/folke/snacks.nvim', version = '882c996cf28183f4d63640de0b4c02ec886d01f2' } }
 
 ---@type snacks.Config
 require('snacks').setup {
@@ -48,7 +48,8 @@ require('snacks').setup {
           }, cmd)
         end, cmds)
       end,
-      { section = 'startup' },
+      -- ponytail: dropped { section = 'startup' } — it hard-requires 'lazy.stats',
+      -- which no longer exists now that we're on vim.pack instead of lazy.nvim
     },
   },
   explorer = { enabled = false },

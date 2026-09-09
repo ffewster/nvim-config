@@ -1,7 +1,7 @@
 -- nvim-tree/nvim-web-devicons dependency is covered by mini.icons' devicons compat shim
 vim.pack.add {
-  { src = 'https://github.com/nvim-neo-tree/neo-tree.nvim', version = 'v3.x' },
-  'https://github.com/MunifTanjim/nui.nvim',
+  { src = 'https://github.com/nvim-neo-tree/neo-tree.nvim', version = 'f3f3bf73414e400cf9fc13fda50f00404a8f8ab1' },
+  { src = 'https://github.com/MunifTanjim/nui.nvim', version = '10fc361835c856ba4233ef5ea135b919bf3dce97' },
 }
 
 local toggle_tree = function()
