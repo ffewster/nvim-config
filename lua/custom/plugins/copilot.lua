@@ -1,4 +1,4 @@
-vim.pack.add { { src = 'https://github.com/zbirenbaum/copilot.lua', version = '901a6c564abb45c7703401ecc6416bb0d15afd37' } }
+-- installed via lua/custom/plugins/init.lua
 require('copilot').setup {
   suggestion = {
     enabled = true,

@@ -9,8 +9,14 @@ Two categories of plugin here, updated differently:
 - **Core kickstart plugins** (`init.lua`, `lua/kickstart/plugins/*.lua`) —
   no explicit commit pin from us, so they float on whatever
   branch/tag/range upstream's `init.lua` specifies.
-- **Custom plugins** (`lua/custom/plugins/*.lua`) — pinned to an exact commit
-  hash, so they never move until you edit the hash yourself.
+- **Custom plugins** — every `vim.pack.add()` call for them lives in one
+  place, `lua/custom/plugins/init.lua`, each pinned to an exact commit hash so
+  none of them move until you edit the hash yourself. The individual files
+  (`claude.lua`, `comment.lua`, etc.) only contain `require(...).setup{}` and
+  keymaps — they don't call `vim.pack.add` themselves. This is deliberate:
+  those files load in an unspecified order (see the auto-discovery loop
+  comment in `init.lua`), so the `add()` calls have to happen earlier, in the
+  one file guaranteed to run first.
 
 ## Everyday commands
 
@@ -49,7 +55,7 @@ Skip the confirmation buffer and apply immediately:
 
 ## Bumping one of our pinned custom plugins
 
-1. Edit the `version = '<hash>'` field in its `lua/custom/plugins/*.lua` file
+1. Edit its `version = '<hash>'` entry in `lua/custom/plugins/init.lua`
    — set it to a newer commit, a tag, or a branch name if you want it to float.
 2. Relaunch nvim (or `:restart`). This only updates the *target* in
    `nvim-pack-lock.json`, not the plugin on disk yet.
@@ -76,8 +82,9 @@ Review and confirm.
 
 ## Removing a plugin
 
-Delete its `vim.pack.add` call (and any `require`/setup) from the relevant
-file, then:
+Delete its entry from the `vim.pack.add {}` block in
+`lua/custom/plugins/init.lua`, delete its own file under
+`lua/custom/plugins/` (the `require(...).setup{}`/keymaps), then:
 ```vim
 :lua vim.pack.del({ 'PluginName' })
 ```
@@ -92,23 +99,10 @@ file, then:
 
 ## Current custom plugin pins
 
-| File | Plugin | Pinned commit |
-|---|---|---|
-| `claude.lua` | claudecode.nvim | `2390c6e45c4789072c293ac69de051d169668b29` |
-| `comment.lua` | Comment.nvim | `e30b7f2008e52442154b66f7c519bfd2f1e32acb` |
-| `copilot-chat.lua` | CopilotChat.nvim | `004ced055d8db59561cfcddc5f141ccd8d5a033b` |
-| `copilot.lua` | copilot.lua | `901a6c564abb45c7703401ecc6416bb0d15afd37` |
-| `markdown-render.lua` | render-markdown.nvim | `4663eb3ecd538bd5062628fb6d95bbe6bdca78f6` |
-| `neo-tree-config.lua` | neo-tree.nvim | `f3f3bf73414e400cf9fc13fda50f00404a8f8ab1` |
-| `neo-tree-config.lua` | nui.nvim | `10fc361835c856ba4233ef5ea135b919bf3dce97` |
-| `sleuth.lua` | vim-sleuth | `be69bff86754b1aa5adcbb527d7fcd1635a84080` |
-| `snacks.lua` | snacks.nvim | `882c996cf28183f4d63640de0b4c02ec886d01f2` |
-| `tabs.lua` | barbar.nvim | `53b5a2f34b68875898f0531032fbf090e3952ad7` |
-| `theme.lua` | gruvbox.nvim | `154eb5ff5b96d0641307113fa385eaf0d36d9796` |
-
-This table goes stale the moment you bump a pin — treat it as a snapshot from
-the last time this doc was written, not a live source of truth. `nvim-pack-lock.json`
-is the actual source of truth.
+Live in `lua/custom/plugins/init.lua`, in one `vim.pack.add {}` block at the
+top of the file — that's the single source of truth for which custom plugins
+exist and what they're pinned to, so there's no separate table here to go
+stale.
 
 ## Optional: a fancier UI
 

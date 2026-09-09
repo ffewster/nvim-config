@@ -1,4 +1,4 @@
-vim.pack.add { { src = 'https://github.com/numToStr/Comment.nvim', version = 'e30b7f2008e52442154b66f7c519bfd2f1e32acb' } }
+-- installed via lua/custom/plugins/init.lua
 require('Comment').setup()
 
 vim.keymap.set('n', '<leader>/', function() require('Comment.api').toggle.linewise.current() end, { desc = 'comment toggle' })

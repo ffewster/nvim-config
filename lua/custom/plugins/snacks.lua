@@ -1,5 +1,4 @@
-vim.pack.add { { src = 'https://github.com/folke/snacks.nvim', version = '882c996cf28183f4d63640de0b4c02ec886d01f2' } }
-
+-- installed via lua/custom/plugins/init.lua
 ---@type snacks.Config
 require('snacks').setup {
   bigfile = { enabled = true },

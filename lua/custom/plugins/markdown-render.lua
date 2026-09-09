@@ -1,6 +1,4 @@
--- nvim-treesitter and mini.nvim are already installed by the core setup
-vim.pack.add { { src = 'https://github.com/MeanderingProgrammer/render-markdown.nvim', version = '4663eb3ecd538bd5062628fb6d95bbe6bdca78f6' } }
-
+-- installed via lua/custom/plugins/init.lua
 ---@module 'render-markdown'
 ---@type render.md.UserConfig
 require('render-markdown').setup {

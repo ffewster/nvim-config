@@ -1,6 +1,4 @@
--- snacks.nvim is already installed by lua/custom/plugins/snacks.lua
-vim.pack.add { { src = 'https://github.com/coder/claudecode.nvim', version = '2390c6e45c4789072c293ac69de051d169668b29' } }
-
+-- installed via lua/custom/plugins/init.lua
 require('claudecode').setup {
   terminal_cmd = vim.fn.system('which claude'):gsub('\n', ''),
 }

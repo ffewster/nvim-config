@@ -1,9 +1,5 @@
--- gitsigns.nvim is already installed by the core setup; devicons dependency
--- is covered by mini.icons' devicons compat shim
-vim.g.barbar_auto_setup = false
-
-vim.pack.add { { src = 'https://github.com/romgrk/barbar.nvim', version = '53b5a2f34b68875898f0531032fbf090e3952ad7' } }
-
+-- installed via lua/custom/plugins/init.lua (vim.g.barbar_auto_setup is also
+-- set there, since it must be set before barbar.nvim's plugin/ files load)
 vim.keymap.set('n', '<Tab>', '<Cmd>BufferNext<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<S-Tab>', '<Cmd>BufferPrevious<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>xx', '<Cmd>BufferClose<CR>', { noremap = true, silent = true })

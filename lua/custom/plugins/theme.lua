@@ -1,8 +1,7 @@
--- vim.pack.add { 'https://github.com/AlexvZyl/nordic.nvim' }
 -- require('nordic').load()
 -- vim.cmd.colorscheme 'nordic'
 
-vim.pack.add { { src = 'https://github.com/ellisonleao/gruvbox.nvim', version = '154eb5ff5b96d0641307113fa385eaf0d36d9796' } }
+-- installed via lua/custom/plugins/init.lua
 require('gruvbox').setup {
   contrast = 'hard',
   transparent_mode = true,
