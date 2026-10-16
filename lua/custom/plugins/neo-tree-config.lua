@@ -17,7 +17,7 @@ require('neo-tree').setup {
   },
   filesystem = {
     window = {
-      position = 'default',
+      position = 'left',
       mappings = {
         ['\\'] = 'close_window',
       },
