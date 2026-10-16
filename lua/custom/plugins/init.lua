@@ -32,6 +32,7 @@ vim.pack.add {
   'https://github.com/folke/snacks.nvim',
   'https://github.com/romgrk/barbar.nvim',
   'https://github.com/ellisonleao/gruvbox.nvim',
+  'https://github.com/oskarnurm/koda.nvim',
 }
 
 -- Iterate over all Lua files in the plugins directory and load them.
