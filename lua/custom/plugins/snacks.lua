@@ -62,3 +62,10 @@ require('snacks').setup {
   statuscolumn = { enabled = true },
   words = { enabled = true },
 }
+
+-- snacks replaces vim.notify, so nothing reaches :messages; mirror it there
+local snacks_notify = vim.notify
+vim.notify = function(msg, level, opts)
+  vim.api.nvim_echo({ { tostring(msg) } }, true, {})
+  return snacks_notify(msg, level, opts)
+end
