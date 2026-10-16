@@ -55,17 +55,18 @@ require('snacks').setup {
   indent = { enabled = true },
   input = { enabled = true },
   picker = { enabled = true },
-  notifier = { enabled = true },
+  notifier = {
+    enabled = true,
+    -- snacks replaces vim.notify, so nothing reaches :messages; mirror it there.
+    -- filter runs once per notification; always returns true so nothing is hidden.
+    filter = function(notif)
+      vim.api.nvim_echo({ { notif.msg } }, true, {})
+      return true
+    end,
+  },
   quickfile = { enabled = true },
   scope = { enabled = true },
   scroll = { enabled = true },
   statuscolumn = { enabled = true },
   words = { enabled = true },
 }
-
--- snacks replaces vim.notify, so nothing reaches :messages; mirror it there
-local snacks_notify = vim.notify
-vim.notify = function(msg, level, opts)
-  vim.api.nvim_echo({ { tostring(msg) } }, true, {})
-  return snacks_notify(msg, level, opts)
-end
