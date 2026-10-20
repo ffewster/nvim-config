@@ -4,16 +4,17 @@ require('snacks').setup {
   bigfile = { enabled = true },
   dashboard = {
     enabled = true,
-    preset = {},
+    preset = {
+      header = table.concat({
+        '█   █  █   █  █████  █   █',
+        '██  █  █   █    █    ██ ██',
+        '█ █ █  █   █    █    █ █ █',
+        '█  ██   █ █     █    █   █',
+        '█   █    █    █████  █   █',
+      }, '\n'),
+    },
     sections = {
-      { section = 'header' },
-      {
-        pane = 1,
-        section = 'terminal',
-        cmd = 'command -v fortune >/dev/null && command -v cowsay >/dev/null && fortune | cowsay || echo Moo',
-        height = 10,
-        padding = 1,
-      },
+      { section = 'header', padding = 1 },
       { section = 'keys', gap = 1, padding = 1 },
       {
         pane = 2,
@@ -25,6 +26,8 @@ require('snacks').setup {
           Snacks.gitbrowse()
         end,
       },
+      { pane = 2, section = 'recent_files', title = 'Recent Files', cwd = true, limit = 5, indent = 2, padding = 1 },
+      { pane = 2, section = 'projects', title = 'Projects', limit = 5, indent = 2, padding = 1 },
       function()
         local in_git = Snacks.git.get_root() ~= nil
         local has_remote = in_git and vim.fn.system 'git remote' ~= ''
@@ -32,7 +35,7 @@ require('snacks').setup {
           {
             icon = ' ',
             title = 'Git Status',
-            cmd = 'git --no-pager diff --stat -B -M -C || echo "Nothing to report"',
+            cmd = 'git --no-optional-locks status --short --branch',
             height = 10,
             enabled = in_git,
           },
