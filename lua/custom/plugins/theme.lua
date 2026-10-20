@@ -1,10 +1,26 @@
 -- installed via lua/custom/plugins/init.lua
 local variable = '#e07a78'
-local yellow = '#f5c542'
+local yellow ='#f5c542'
+local blue = '#7fbfe0'
+local orange = '#e8a05a'
+local white = '#ffffff'
+local fg = '#d0d0d0'
 
 require('koda').setup {
   transparent = true,
-  colors = { keyword = yellow, func = '#7fbfe0' },
+  colors = {
+    fg = fg,
+    type = fg,
+    operator = fg,
+    emphasis = fg,
+    special = fg,
+    char = fg,
+    border = '#555555',
+    keyword = yellow,
+    func = blue,
+    string = orange,
+    const = white,
+  },
   -- koda has no palette key for variables
   on_highlights = function(hl)
     hl.Cursor = { bg = yellow, fg = '#000000' }
