@@ -1,7 +1,11 @@
 -- installed via lua/custom/plugins/init.lua
-require('claudecode').setup {
-  terminal_cmd = vim.fn.system('which claude'):gsub('\n', ''),
-}
+-- Deferred until the UI is up; exepath avoids a blocking `which` subprocess.
+vim.api.nvim_create_autocmd('UIEnter', {
+  once = true,
+  callback = function()
+    vim.schedule(function() require('claudecode').setup { terminal_cmd = vim.fn.exepath 'claude' } end)
+  end,
+})
 
 require('which-key').add { { '<leader>a', group = 'AI/Claude Code' } }
 
